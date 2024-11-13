@@ -1,4 +1,6 @@
 import React from 'react';
+import { Button } from '@/components/ui/button';
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@/components/ui/dropdown-menu';
 
 const Navbar: React.FC = () => {
   return (
@@ -12,14 +14,14 @@ const Navbar: React.FC = () => {
 
         {/* Navigation Links */}
         <div className="flex space-x-6">
-          <a href="#" className="text-blue-600 font-medium border-b-2 border-blue-600">
+          <Button variant="link" className="text-blue-600 border-b-2 border-blue-600 font-medium">
             Home
-          </a>
-          <a href="#" className="text-gray-600 hover:text-blue-600">Find Job</a>
-          <a href="#" className="text-gray-600 hover:text-blue-600">Employers</a>
-          <a href="#" className="text-gray-600 hover:text-blue-600">Candidates</a>
-          <a href="#" className="text-gray-600 hover:text-blue-600">Pricing Plans</a>
-          <a href="#" className="text-gray-600 hover:text-blue-600">Customer Supports</a>
+          </Button>
+          <Button variant="link" className="text-gray-600 hover:text-blue-600">Find Job</Button>
+          <Button variant="link" className="text-gray-600 hover:text-blue-600">Employers</Button>
+          <Button variant="link" className="text-gray-600 hover:text-blue-600">Candidates</Button>
+          <Button variant="link" className="text-gray-600 hover:text-blue-600">Pricing Plans</Button>
+          <Button variant="link" className="text-gray-600 hover:text-blue-600">Customer Supports</Button>
         </div>
 
         {/* Contact Info */}
@@ -28,11 +30,22 @@ const Navbar: React.FC = () => {
             <span role="img" aria-label="phone" className="text-gray-600">📞</span>
             <span className="text-gray-600">+1-202-555-0178</span>
           </div>
-          <div className="flex items-center space-x-1">
-            <span role="img" aria-label="flag" className="text-gray-600">🇺🇸</span>
-            <span className="text-gray-600">English</span>
-            <span className="text-gray-600">▼</span>
-          </div>
+          
+          {/* Language Dropdown */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="flex items-center space-x-1 text-gray-600">
+                <span role="img" aria-label="flag">🇺🇸</span>
+                <span>English</span>
+                <span>▼</span>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem>English</DropdownMenuItem>
+              <DropdownMenuItem>Spanish</DropdownMenuItem>
+              <DropdownMenuItem>French</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </nav>
     </div>
