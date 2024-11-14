@@ -10,6 +10,24 @@ interface LoginResponse {
   userType: string;
 }
 
+interface SignUpCredentials {
+  email: string;
+  password: string;
+  confirmPassword: string; // For sign up, you typically need to confirm the password
+}
+
+interface SignUpResponse {
+  token: string;
+  userType: string;
+}
+
+export const signupUser = async (
+  credentials: SignUpCredentials
+): Promise<SignUpResponse> => {
+  const response = await axios.post("/api/signup", credentials);
+  return response.data;
+};
+
 export const loginUser = async (
   credentials: LoginCredentials
 ): Promise<LoginResponse> => {
