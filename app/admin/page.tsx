@@ -31,7 +31,7 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     // Check if the user is authenticated by looking for the token
-    const token = localStorage.getItem("token"); // Replace with your actual storage strategy
+    const token = localStorage.getItem("token"); 
 
     if (token !== "mockToken") {
       // Redirect unauthorized users to the login page
