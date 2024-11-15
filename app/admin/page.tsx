@@ -1,11 +1,44 @@
-import Sidebar from '@/components/Sidebar';
-import React from 'react';
-import { Card, CardContent, CardTitle, CardDescription } from "@/components/ui/card";
+"use client";
+
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import Sidebar from "@/components/Sidebar";
+import React from "react";
+import {
+  Card,
+  CardContent,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table";
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu";
+import {
+  Table,
+  TableHeader,
+  TableBody,
+  TableRow,
+  TableHead,
+  TableCell,
+} from "@/components/ui/table";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from "@/components/ui/dropdown-menu";
 
 export default function AdminDashboard() {
+  const router = useRouter();
+
+  useEffect(() => {
+    // Check if the user is authenticated by looking for the token
+    const token = localStorage.getItem("token"); // Replace with your actual storage strategy
+
+    if (token !== "mockToken") {
+      // Redirect unauthorized users to the login page
+      router.push("/login");
+    }
+  }, [router]);
+
   return (
     <div className="flex">
       {/* Sidebar */}
@@ -43,7 +76,9 @@ export default function AdminDashboard() {
         <div>
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-lg font-semibold">Recently Posted Jobs</h2>
-            <Button variant="link" className="text-blue-600">View all</Button>
+            <Button variant="link" className="text-blue-600">
+              View all
+            </Button>
           </div>
           <Card>
             <Table>
@@ -60,7 +95,9 @@ export default function AdminDashboard() {
                 <TableRow>
                   <TableCell>
                     <div>UI/UX Designer</div>
-                    <div className="text-gray-500 text-sm">Full Time • 27 days remaining</div>
+                    <div className="text-gray-500 text-sm">
+                      Full Time • 27 days remaining
+                    </div>
                   </TableCell>
                   <TableCell>
                     <span className="text-green-600">Active</span>
@@ -72,7 +109,9 @@ export default function AdminDashboard() {
                     <Button variant="outline">View Applications</Button>
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" className="ml-2">⋮</Button>
+                        <Button variant="ghost" className="ml-2">
+                          ⋮
+                        </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent>
                         <DropdownMenuItem>Promote Job</DropdownMenuItem>
