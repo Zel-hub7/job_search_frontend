@@ -11,15 +11,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        {/* Navbar included at the top */}
         <Navbar />
 
-       
-        
-
-          {/* Main Content Area */}
+        <div className="m-5 p-6">
           <main>{children}</main>
-     
+        </div>
       </body>
     </html>
   );

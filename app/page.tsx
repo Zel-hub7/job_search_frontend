@@ -7,7 +7,7 @@ import JobSearch from '@/components/home/JobSearch';
 const jobs = [
   { title: 'Software Engineer', postedDate: '2024-11-14', category: 'Engineering', location: 'Remote', description: 'Develop and maintain software applications.', requirements: 'Experience with JavaScript and React.', salary: '100K' },
   { title: 'Frontend Developer', postedDate: '2024-11-10', category: 'Development', location: 'New York', description: 'Build beautiful web interfaces.', requirements: 'Experience with React, HTML, and CSS.', salary: '80K' },
-
+  { title: 'Backend Developer', postedDate: '2024-11-09', category: 'Development', location: 'London', description: 'Build the backend of the applications.', requirements: 'Experience with Spring boot, PSQL and Docker.', salary: '80K' }
 ];
 
 const Home: React.FC = () => {

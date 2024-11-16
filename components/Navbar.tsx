@@ -13,10 +13,10 @@ const NavBar: FC = () => {
 
   return (
     <nav className="flex justify-between items-center bg-white p-4 shadow-md">
-      <div className="flex items-center space-x-4">
+      <div className="flex items-center mx-6 space-x-4">
         <a href="/" className='font-extrabold'>iCogJobs</a>
       </div>
-      <div className="flex items-center space-x-4">
+      <div className="flex items-center space-x-4 mx-6">
         {isSignedIn ? (
           <button onClick={handleSignInOut} className="text-blue-600 font-medium">
             Sign Out
