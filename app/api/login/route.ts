@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
-import { NextApiRequest } from "next";
 
-export async function POST(req: NextApiRequest) {
+export async function POST(req: Request) {
   const { email, password } = await req.json();
 
   if (email === "admin@example.com" && password === "password") {
