@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import JobCard from "@/components/home/JobCard";
 import JobSearch from '@/components/home/JobSearch';
+ 
 
 const jobs = [
   { title: 'Software Engineer', postedDate: '2024-11-14', category: 'Engineering', location: 'Remote', description: 'Develop and maintain software applications.', requirements: 'Experience with JavaScript and React.', salary: '100K' },
