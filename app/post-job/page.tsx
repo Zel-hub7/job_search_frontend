@@ -11,7 +11,7 @@ export default function NewJob()  {
          Test Company
       </div>
       <div className="mt-4">
-        <Link  className="inline-flex items-center px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 transition" href="/create-company">        
+        <Link  className="inline-flex items-center px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 transition" href="/new-company">        
             Create a new company
             <span className="ml-2">&rarr;</span>          
         </Link>
