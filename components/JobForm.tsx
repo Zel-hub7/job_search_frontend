@@ -1,6 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+type Company = {
+  id: number;
+  name: string;
+  industry: string;
+  website: string;
+  headquarters: string;
+};
 
 const JobForm = () => {
   const [formData, setFormData] = useState({
@@ -12,6 +20,30 @@ const JobForm = () => {
     description: "",
   });
 
+  const [companies, setCompanies] = useState<Company[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const fetchCompanies = async () => {
+      setLoading(true);
+      setError("");
+      try {
+        const response = await fetch("https://jobs-backend-22vj.onrender.com/api/companies");
+        if (!response.ok) throw new Error("Failed to fetch companies");
+        const data: Company[] = await response.json();
+        setCompanies(data);
+      } catch (err) {
+        console.error(err);
+        setError("Unable to load companies. Please try again.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCompanies();
+  }, []);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -20,13 +52,13 @@ const JobForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Convert companyId to number
     const payload = {
       ...formData,
       companyId: Number(formData.companyId), // Ensure companyId is sent as a number
     };
 
-    // Validate required fields
+    console.log("Payload being sent:", payload); // Log the payload for debugging
+
     if (!payload.title || !payload.companyId || !payload.description) {
       alert("Please fill out all required fields.");
       return;
@@ -41,9 +73,11 @@ const JobForm = () => {
         body: JSON.stringify(payload),
       });
 
+      const responseData = await response.json();
+      console.log("Response from server:", responseData); // Log the response
+
       if (response.ok) {
         alert("Job posted successfully!");
-        // Reset form data
         setFormData({
           title: "",
           companyId: "",
@@ -53,9 +87,8 @@ const JobForm = () => {
           description: "",
         });
       } else {
-        const errorData = await response.json();
-        console.error("Error:", errorData);
-        alert(`Failed to post job: ${errorData.message || "An error occurred."}`);
+        console.error("Server error:", responseData);
+        alert(`Failed to post job: ${responseData.message || "An error occurred."}`);
       }
     } catch (error) {
       console.error("Error posting job:", error);
@@ -81,16 +114,28 @@ const JobForm = () => {
       </div>
 
       <div className="mb-4">
-        <label htmlFor="companyId" className="block text-sm font-medium text-gray-700">Company ID</label>
-        <input
-          type="number" // Change input type to number for better UX
-          id="companyId"
-          name="companyId"
-          value={formData.companyId}
-          onChange={handleChange}
-          required
-          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-        />
+        <label htmlFor="companyId" className="block text-sm font-medium text-gray-700">Company</label>
+        {loading ? (
+          <p>Loading companies...</p>
+        ) : error ? (
+          <p className="text-red-500">{error}</p>
+        ) : (
+          <select
+            id="companyId"
+            name="companyId"
+            value={formData.companyId}
+            onChange={handleChange}
+            required
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+          >
+            <option value="" disabled>Select a company</option>
+            {companies.map((company) => (
+              <option key={company.id} value={company.id}>
+                {company.name}
+              </option>
+            ))}
+          </select>
+        )}
       </div>
 
       <div className="mb-4">
