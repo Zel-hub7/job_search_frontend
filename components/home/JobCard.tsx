@@ -33,7 +33,7 @@ const JobCard: React.FC<{ job: Job; loading: boolean }> = ({ job, loading }) => 
         Type: {job.type} | Mode: {job.workMode}
       </p>
       <p className="mt-2 text-gray-800 flex-grow">{job.description}</p>
-      <Link href={`/jobs/${job.id}`}>
+      <Link href={`/jobs/${job.id}/apply`}>
         <button className="bg-blue-500 text-white mt-2 p-2 rounded w-full">Apply</button>
       </Link>
     </div>
