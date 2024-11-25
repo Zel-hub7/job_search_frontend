@@ -65,7 +65,7 @@ const ApplyPage = () => {
 
       if (response.ok) {
         alert("Application submitted successfully!");
-        router.push("/jobs");
+        router.push("/");
       } else {
         setError(responseData.error || "Failed to submit the application.");
         console.error("Server error:", responseData);
