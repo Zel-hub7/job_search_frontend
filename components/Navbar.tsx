@@ -22,7 +22,7 @@ const NavBar: FC = () => {
             Sign Out
           </button>
         ) : (
-          <a href="/sign-in">
+          <a href="/login">
             <button className="text-blue-600 font-medium">
               Sign In
             </button>

@@ -1,0 +1,20 @@
+POST https://jobs-backend-22vj.onrender.com/api/2/jobs/apply
+
+content-type: application/json
+
+
+{
+  "applicantName": "string",
+  "applicantEmail": "string",
+  "applicantPhone": "0772197241",
+  "applicantAddress": "string",
+  "applicantBirthDate": "2024-11-25",
+  "applicantGender": "MALE",
+  "applicantEducationLevel": "HIGH_SCHOOL",
+  "applicantExperienceLevel": "INTERNSHIP",
+  "coverLetter": "string"
+}
+
+
+
+

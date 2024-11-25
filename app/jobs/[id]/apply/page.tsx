@@ -23,7 +23,9 @@ const ApplyPage = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
@@ -33,10 +35,24 @@ const ApplyPage = () => {
     setLoading(true);
     setError("");
 
-    const payload = { jobId: Number(jobId), ...formData };
+    const payload = {
+      applicantName: formData.applicantName,
+      applicantEmail: formData.applicantEmail,
+      applicantPhone: formData.applicantPhone,
+      applicantAddress: formData.applicantAddress,
+      applicantBirthDate: formData.applicantBirthDate,
+      applicantGender: formData.applicantGender,
+      applicantEducationLevel: formData.applicantEducationLevel,
+      applicantExperienceLevel: formData.applicantExperienceLevel,
+      coverLetter: formData.coverLetter,
+    };
+
+    console.log("Payload being sent to API:", payload);
+
+    const endpoint = `https://jobs-backend-22vj.onrender.com/api/jobs/${jobId}/apply`;
 
     try {
-      const response = await fetch("https://jobs-backend-22vj.onrender.com/api/applications", {
+      const response = await fetch(endpoint, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -44,14 +60,18 @@ const ApplyPage = () => {
         body: JSON.stringify(payload),
       });
 
+      const responseData = await response.json();
+      console.log("Response from server:", responseData);
+
       if (response.ok) {
         alert("Application submitted successfully!");
         router.push("/jobs");
       } else {
-        const errorData = await response.json();
-        setError(errorData.message || "Failed to submit the application.");
+        setError(responseData.error || "Failed to submit the application.");
+        console.error("Server error:", responseData);
       }
     } catch (err) {
+      console.error("Error while submitting the application:", err);
       setError("An error occurred while submitting the application. Please try again.");
     } finally {
       setLoading(false);
