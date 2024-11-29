@@ -84,7 +84,7 @@ export default function AdminDashboard() {
       {/* Main Content */}
       <div className="min-h-screen w-full bg-gray-100 p-8">
         {/* Welcome Message */}
-        <div className="text-xl font-semibold mb-4">Hello, Instagram</div>
+        <div className="text-xl font-semibold mb-4">Hello, Admin</div>
         <p className="text-gray-500 mb-8">Here is your daily activities and applications</p>
 
         {/* Summary Cards */}

@@ -10,7 +10,7 @@ type Company = {
   industry: string;
   website: string;
   headquarters: string;
-  createdAt?: string; // Optional: Add if the creation time is available
+  createdAt?: string; 
 };
 
 const CompanyList = () => {
