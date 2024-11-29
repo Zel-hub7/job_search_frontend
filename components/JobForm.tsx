@@ -21,12 +21,13 @@ const JobForm = () => {
   });
 
   const [companies, setCompanies] = useState<Company[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [loadingCompanies, setLoadingCompanies] = useState(false);
   const [error, setError] = useState("");
 
+  // Fetch companies
   useEffect(() => {
     const fetchCompanies = async () => {
-      setLoading(true);
+      setLoadingCompanies(true);
       setError("");
       try {
         const response = await fetch("https://jobs-backend-22vj.onrender.com/api/companies");
@@ -37,7 +38,7 @@ const JobForm = () => {
         console.error(err);
         setError("Unable to load companies. Please try again.");
       } finally {
-        setLoading(false);
+        setLoadingCompanies(false);
       }
     };
 
@@ -52,13 +53,15 @@ const JobForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    // Ensure companyId is a number
     const payload = {
       ...formData,
-      companyId: Number(formData.companyId), // Ensure companyId is sent as a number
+      companyId: Number(formData.companyId),
     };
 
-    console.log("Payload being sent:", payload); // Log the payload for debugging
+    console.log("Payload being sent:", payload); // Debugging
 
+    // Validate required fields
     if (!payload.title || !payload.companyId || !payload.description) {
       alert("Please fill out all required fields.");
       return;
@@ -74,7 +77,7 @@ const JobForm = () => {
       });
 
       const responseData = await response.json();
-      console.log("Response from server:", responseData); // Log the response
+      console.log("Response from server:", responseData);
 
       if (response.ok) {
         alert("Job posted successfully!");
@@ -100,6 +103,7 @@ const JobForm = () => {
     <form onSubmit={handleSubmit} className="max-w-xl mx-auto p-6 bg-white shadow-md rounded-md">
       <h1 className="text-xl font-bold mb-4">Post a Job</h1>
 
+      {/* Job Title */}
       <div className="mb-4">
         <label htmlFor="title" className="block text-sm font-medium text-gray-700">Job Title</label>
         <input
@@ -113,9 +117,10 @@ const JobForm = () => {
         />
       </div>
 
+      {/* Company Selection */}
       <div className="mb-4">
         <label htmlFor="companyId" className="block text-sm font-medium text-gray-700">Company</label>
-        {loading ? (
+        {loadingCompanies ? (
           <p>Loading companies...</p>
         ) : error ? (
           <p className="text-red-500">{error}</p>
@@ -138,6 +143,7 @@ const JobForm = () => {
         )}
       </div>
 
+      {/* Experience Level */}
       <div className="mb-4">
         <label htmlFor="experienceLevel" className="block text-sm font-medium text-gray-700">Experience Level</label>
         <select
@@ -148,12 +154,16 @@ const JobForm = () => {
           className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
         >
           <option value="INTERNSHIP">Internship</option>
-          <option value="JUNIOR">Junior</option>
-          <option value="MID">Mid</option>
-          <option value="SENIOR">Senior</option>
+          <option value="ASSOCIATE">Associate</option>
+          <option value="DIRECTOR">Director</option>
+          <option value="ENTRY_LEVEL">Entry Level</option>
+          <option value="MID_SENIOR_LEVEL">Mid-Senior Level</option>
+          <option value="SENIOR_LEVEL">Senior Level</option>
+          <option value="EXECUTIVE_LEVEL">Executive Level</option>
         </select>
       </div>
 
+      {/* Job Type */}
       <div className="mb-4">
         <label htmlFor="type" className="block text-sm font-medium text-gray-700">Job Type</label>
         <select
@@ -165,10 +175,11 @@ const JobForm = () => {
         >
           <option value="FULL_TIME">Full-time</option>
           <option value="PART_TIME">Part-time</option>
-          <option value="CONTRACT">Contract</option>
+          <option value="CONTRACTUAL">Contractual</option>
         </select>
       </div>
 
+      {/* Work Mode */}
       <div className="mb-4">
         <label htmlFor="workMode" className="block text-sm font-medium text-gray-700">Work Mode</label>
         <select
@@ -179,10 +190,12 @@ const JobForm = () => {
           className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
         >
           <option value="REMOTE">Remote</option>
-          <option value="ONSITE">Onsite</option>
+          <option value="ON_SITE">ON SITE</option>
+          <option value="HYBRID">Hybrid</option>
         </select>
       </div>
 
+      {/* Description */}
       <div className="mb-4">
         <label htmlFor="description" className="block text-sm font-medium text-gray-700">Description</label>
         <textarea
@@ -194,8 +207,8 @@ const JobForm = () => {
           className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
         />
       </div>
-      
 
+      {/* Submit Button */}
       <button
         type="submit"
         className="w-full px-4 py-2 text-white bg-blue-500 rounded-md shadow-sm hover:bg-blue-600 focus:ring focus:ring-blue-300"
